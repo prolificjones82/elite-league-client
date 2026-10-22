@@ -2,21 +2,43 @@
 
 namespace EliteLeagueClient\Client;
 
+use EliteLeagueClient\Logger;
 use EliteLeagueClient\Constants;
+use GuzzleHttp\Client as GuzzleClient;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractClient
 {
+    private GuzzleClient $client;
     private string $baseUrl;
     private array $headers = [];
+    private Logger $logger;
+    private array $clientOptions;
 
     public function __construct(?array $headers)
     {
+        $this->createLogger();
+
         $this->setBaseUrl(Constants::BASE_URL);
         $this->setHeaders(array_merge([
             'Cache-Control' => 'no-cache',
             'Content-Type' => Constants::CONTENT_TYPE,
         ], $headers ?? []));
+
+        $this->client = new GuzzleClient([
+            'base_uri' => $this->getBaseUrl(),
+        ]);
+
+        $this->clientOptions = [
+            'debug' => false,
+            'headers' => $this->getHeaders(),
+            'idn_conversion' => false,
+        ];
+    }
+
+    private function createLogger(): void
+    {
+        $this->logger = new Logger();
     }
 
     abstract public function makeRequest(string $method, string $path, ?array $data, ?array $headers): Response;
@@ -59,5 +81,30 @@ abstract class AbstractClient
         $this->headers = array_merge($this->headers, $headers);
 
         return $this;
+    }
+
+    public function getLogger(): Logger
+    {
+        return $this->logger;
+    }
+
+    /**
+     * Get the value of client
+     */
+    public function getClient(): GuzzleClient
+    {
+        return $this->client;
+    }
+
+    /**
+     * Get the value of clientOptions
+     */
+    public function getClientOptions(array $body = []): array
+    {
+        if (!empty($body)) {
+            $this->clientOptions['body'] = json_encode($body, JSON_THROW_ON_ERROR);
+        }
+
+        return $this->clientOptions;
     }
 }
