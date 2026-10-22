@@ -4,6 +4,11 @@ namespace EliteLeagueClient\Game\Response;
 
 use EliteLeagueClient\Response\ResultResponse;
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
+use EliteLeagueClient\Game\Response\GameInfo\TeamResponse;
+use EliteLeagueClient\Game\Response\GameInfo\RosterResponse;
+use EliteLeagueClient\Game\Response\GameInfo\BilanceResponse;
+use EliteLeagueClient\Game\Response\GameInfo\RefereeResponse;
+use EliteLeagueClient\Game\Response\GameInfo\TrainerResponse;
 
 final readonly class GameInfoResponse implements ReadonlyInterface
 {

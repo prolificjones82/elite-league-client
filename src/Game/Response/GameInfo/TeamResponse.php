@@ -1,6 +1,6 @@
 <?php
 
-namespace EliteLeagueClient\Game\Response;
+namespace EliteLeagueClient\Game\Response\GameInfo;
 
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
 use EliteLeagueClient\Response\TeamResponse as FullTeamResponse;
