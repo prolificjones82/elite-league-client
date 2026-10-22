@@ -26,6 +26,6 @@ final readonly class TimeData implements ReadonlyInterface
         return new self(
             realTime: new DateTime($data['realTime']),
             scoreboardTime: $data['scoreboardTime'],
-        )
+        );
     }
 }
