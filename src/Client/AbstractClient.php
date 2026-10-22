@@ -41,7 +41,15 @@ abstract class AbstractClient
         $this->logger = new Logger();
     }
 
-    abstract public function makeRequest(string $method, string $path, ?array $data, ?array $headers): Response;
+    protected function getResponseData(Response $response, bool $asArray = true): array
+    {
+        return json_decode(
+            $response->getContent(),
+            $asArray,
+            512,
+            JSON_THROW_ON_ERROR,
+        );
+    }
 
     /**
      * Get the value of baseUrl
@@ -106,15 +114,5 @@ abstract class AbstractClient
         }
 
         return $this->clientOptions;
-    }
-
-    protected function getResponseData(Response $response, bool $asArray = true): array
-    {
-        return json_decode(
-            $response->getContent(),
-            $asArray,
-            512,
-            JSON_THROW_ON_ERROR,
-        );
     }
 }

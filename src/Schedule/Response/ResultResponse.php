@@ -29,7 +29,7 @@ final readonly class ResultResponse implements ReadonlyInterface
             extra_time: $data['extra_time'],
             shooting: $data['shooting'],
             contumacy: $data['contumacy'],
-            score: ScoreResponse::fromArray($data['score'])
+            score: ScoreResponse::fromArray($data['score']),
         );
     }
 }

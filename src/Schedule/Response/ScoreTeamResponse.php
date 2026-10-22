@@ -23,7 +23,7 @@ final readonly class ScoreTeamResponse implements ReadonlyInterface
     {
         return new self(
             score_home: $data['score_home'],
-            score_guest: $data['score_guest']
+            score_guest: $data['score_guest'],
         );
     }
 }
