@@ -21,5 +21,18 @@
     ],
     "require": {
         "guzzlehttp/guzzle": "^8.3"
-    }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "phpstan/phpstan": "^2.3",
+        "phpunit/phpunit": "^13.4",
+        "php": "^8.4"
+    },
+    "scripts": {
+		"typecheck": "./vendor/bin/phpstan analyse -c phpstan.neon --error-format=table || true",
+		"test": "phpunit",
+		"test-coverage": "phpunit --coverage-text",
+		"format": "php-cs-fixer fix",
+		"format:check": "php-cs-fixer check --diff"
+	}
 }
