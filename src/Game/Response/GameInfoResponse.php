@@ -39,15 +39,15 @@ final readonly class GameInfoResponse implements ReadonlyInterface
     public static function fromArray(array $data): self
     {
         return new self(
-            actualTimeName: $data['actualTimeName'],
-            actualTimeAlias: $data['actualTimeAlias'],
-            stadium: $data['stadium'],
-            numberOfViewers: $data['numberOfViewers'],
-            referees: RefereeResponse::fromArray($data['referees']),
-            teamInfo: TeamResponse::fromArray($data['teamInfo']),
-            trainers: TrainerResponse::fromArray($data['trainers']),
-            teamBilance: BilanceResponse::fromArray($data['teamBilance']),
-            results: ResultResponse::fromArray($data['results']),
+            actualTimeName: (isset($data['gameInfo'])) ? $data['gameInfo']['actualTimeName'] : $data['actualTimeName'],
+            actualTimeAlias: (isset($data['gameInfo'])) ? $data['gameInfo']['actualTimeAlias'] : $data['actualTimeAlias'],
+            stadium: (isset($data['gameInfo'])) ? $data['gameInfo']['stadium'] : $data['stadium'],
+            numberOfViewers: (isset($data['gameInfo'])) ? $data['gameInfo']['numberOfViewers'] : $data['numberOfViewers'],
+            referees: RefereeResponse::fromArray((isset($data['gameInfo'])) ? $data['gameInfo']['referees'] : $data['referees']),
+            teamInfo: TeamResponse::fromArray((isset($data['gameInfo'])) ? $data['gameInfo']['teamInfo'] : $data['teamInfo']),
+            trainers: TrainerResponse::fromArray((isset($data['gameInfo'])) ? $data['gameInfo']['trainers'] : $data['trainers']),
+            teamBilance: BilanceResponse::fromArray((isset($data['gameInfo'])) ? $data['gameInfo']['teamBilance'] : $data['teamBilance']),
+            results: ResultResponse::fromArray((isset($data['gameInfo'])) ? $data['gameInfo']['results'] : $data['results']),
             roster: RosterResponse::fromArray($data['roster']),
         );
     }
