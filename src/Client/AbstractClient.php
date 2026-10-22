@@ -15,7 +15,7 @@ abstract class AbstractClient
         $this->setBaseUrl(Constants::BASE_URL);
         $this->setHeaders(array_merge([
             'Cache-Control' => 'no-cache',
-            'Content-Type' => Constants::CONTENT_TYPE
+            'Content-Type' => Constants::CONTENT_TYPE,
         ], $headers ?? []));
     }
 
@@ -32,7 +32,7 @@ abstract class AbstractClient
     /**
      * Set the value of baseUrl
      *
-     * @return  self
+     * @return self
      */
     public function setBaseUrl(string $baseUrl)
     {
@@ -52,7 +52,7 @@ abstract class AbstractClient
     /**
      * Set the value of headers
      *
-     * @return  self
+     * @return self
      */
     public function setHeaders(array $headers = [])
     {
