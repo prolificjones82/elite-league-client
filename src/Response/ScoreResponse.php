@@ -1,6 +1,6 @@
 <?php
 
-namespace EliteLeagueClient\Schedule\Response;
+namespace EliteLeagueClient\Response;
 
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
 

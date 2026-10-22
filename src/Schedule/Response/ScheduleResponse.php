@@ -4,7 +4,9 @@ namespace EliteLeagueClient\Schedule\Response;
 
 use DateTime;
 use EliteLeagueClient\Constants;
+use EliteLeagueClient\Response\TeamResponse;
 use EliteLeagueClient\Schedule\Enums\League;
+use EliteLeagueClient\Response\ResultResponse;
 use EliteLeagueClient\Schedule\Enums\GameStatus;
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
 

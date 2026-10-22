@@ -15,7 +15,7 @@ final class Game extends Client
         try {
             $req = $this->makeRequest('GET', $path);
             $res = $this->getResponseData($req);
-            // $response = StandingsResponse::fromArray($res);
+            // $response = StandingsResponse::fromArray($res['gameInfo]);
             // return $response;
         } catch (RequestException $re) {
             $this->getLogger()->addError(sprintf('(%s) - %s', $re->getCode(), $re->getMessage()), [
