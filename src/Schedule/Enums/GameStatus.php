@@ -2,6 +2,9 @@
 
 namespace EliteLeagueClient\Schedule\Enums;
 
+/**
+ * Defined here: https://gamestatseihl.docs.apiary.io/#reference/game-schedule/get-league-schedule
+ */
 enum GameStatus: string
 {
     case BEFORE_MATCH = 'Fixture';
