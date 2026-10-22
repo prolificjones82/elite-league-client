@@ -4,7 +4,9 @@ namespace EliteLeagueClient\Standings;
 
 use Exception;
 use EliteLeagueClient\Client\Client;
+use GuzzleHttp\Exception\RequestException;
 use EliteLeagueClient\Schedule\Enums\League;
+use EliteLeagueClient\Standings\Response\StandingsResponse;
 
 final class Standings extends Client
 {
