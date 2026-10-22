@@ -107,4 +107,14 @@ abstract class AbstractClient
 
         return $this->clientOptions;
     }
+
+    protected function getResponseData(Response $response, bool $asArray = true): array
+    {
+        return json_decode(
+            $response->getContent(),
+            $asArray,
+            512,
+            JSON_THROW_ON_ERROR,
+        );
+    }
 }

@@ -3,6 +3,7 @@
 namespace EliteLeagueClient\Schedule\Response;
 
 use DateTime;
+use EliteLeagueClient\Constants;
 use EliteLeagueClient\Schedule\Enums\League;
 use EliteLeagueClient\Schedule\Enums\GameStatus;
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
@@ -30,13 +31,45 @@ final readonly class ScheduleResponse implements ReadonlyInterface
 
     public function toArray(): array
     {
-        //TODO: implement toArray
-        throw new \Exception('toArray not implemented');
+        return [
+            'id' => $this->id,
+            'start_date' => $this->start_date->format(Constants::DATETIME_FORMAT),
+            'league_id' => $this->league_id->value,
+            'league' => $this->league,
+            'season' => $this->season,
+            'round' => $this->round,
+            'group' => $this->group,
+            'home' => $this->home->toArray(),
+            'guest' => $this->guest->toArray(),
+            'status' => $this->status->value,
+            'overtimeCount' => $this->overtimeCount ?? null,
+            'results' => $this->results->toArray(),
+            'actual_time_name' => $this->actual_time_name,
+            'actual_time_alias' => $this->actual_time_alias,
+            'last_event_time' => $this->last_event_time,
+            'arena' => $this->arena,
+        ];
     }
 
-    public function fromArray(array $data): self
+    public static function fromArray(array $data): self
     {
-        //TODO: implement fromArray
-        throw new \Exception('fromArray not implemented');
+        return new self(
+            id: $data['id'],
+            start_date: new DateTime($data['start_date']),
+            league_id: League::tryFrom($data['league_id']),
+            league: $data['league'],
+            season: $data['season'],
+            round: $data['round'],
+            group: $data['group'],
+            home: TeamResponse::fromArray($data['home']),
+            guest: TeamResponse::fromArray($data['guest']),
+            status: GameStatus::tryFrom($data['status']),
+            overtimeCount: $data['overtimeCount'],
+            results: ResultResponse::fromArray($data['results']),
+            actual_time_name: $data['actual_time_name'],
+            actual_time_alias: $data['actual_time_alias'],
+            last_event_time: $data['last_event_time'],
+            arena: $data['arena'],
+        );
     }
 }

@@ -13,13 +13,17 @@ final readonly class ScoreTeamResponse implements ReadonlyInterface
 
     public function toArray(): array
     {
-        //TODO: implement toArray
-        throw new \Exception('toArray not implemented');
+        return [
+            'score_home' => $this->score_home,
+            'score_guest' => $this->score_guest,
+        ];
     }
 
-    public function fromArray(array $data): self
+    public static function fromArray(array $data): self
     {
-        //TODO: implement fromArray
-        throw new \Exception('fromArray not implemented');
+        return new self(
+            score_home: $data['score_home'],
+            score_guest: $data['score_guest']
+        );
     }
 }

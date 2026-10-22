@@ -6,7 +6,7 @@ use Exception;
 use EliteLeagueClient\Client\Client;
 use GuzzleHttp\Exception\RequestException;
 use EliteLeagueClient\Schedule\Enums\League;
-use Symfony\Component\HttpFoundation\Response;
+use EliteLeagueClient\Schedule\Response\ScheduleResponse;
 
 final class GameSchedule extends Client
 {
@@ -16,15 +16,17 @@ final class GameSchedule extends Client
      * @param League  $league
      * @param ?string $year
      *
-     * @return Response
+     * @return ScheduleResponse
      * @throws Exception
      */
-    public function getLeagueSchedule(League $league, ?string $year): Response
+    public function getLeagueSchedule(League $league, ?string $year): ScheduleResponse
     {
         $path = sprintf('/league-matches/%s/%s.json', $year ?? date('Y'), $league->value);
 
         try {
-            $response = $this->makeRequest('GET', $path);
+            $req = $this->makeRequest('GET', $path);
+            $res = $this->getResponseData($req);
+            $response = ScheduleResponse::fromArray($res['matches']);
             return $response;
         } catch (RequestException $re) {
             $this->getLogger()->addError(sprintf('(%s) - %s', $re->getCode(), $re->getMessage()), [
@@ -48,15 +50,17 @@ final class GameSchedule extends Client
      * @param string|int $team
      * @param ?string    $year
      *
-     * @return Response
+     * @return ScheduleResponse
      * @throws Exception
      */
-    public function getTeamSchedule(League $league, int|string $team, ?string $year): Response
+    public function getTeamSchedule(League $league, int|string $team, ?string $year): ScheduleResponse
     {
         $path = sprintf('/league-team-matches/%s/%s/%s.json', $year ?? date('Y'), $league->value, (string) $team);
 
         try {
-            $response = $this->makeRequest('GET', $path);
+            $req = $this->makeRequest('GET', $path);
+            $res = $this->getResponseData($req);
+            $response = ScheduleResponse::fromArray($res['matches']);
             return $response;
         } catch (RequestException $re) {
             $this->getLogger()->addError(sprintf('(%s) - %s', $re->getCode(), $re->getMessage()), [

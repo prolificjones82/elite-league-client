@@ -8,4 +8,5 @@ final class Constants
     public const CONTENT_TYPE = 'application/json';
     public const DATE_FORMAT = 'Y-m-d';
     public const TIME_FORMAT = 'H:i:s';
+    public const DATETIME_FORMAT = 'Y-m-d H:i:s';
 }

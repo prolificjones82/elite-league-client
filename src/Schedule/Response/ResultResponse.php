@@ -15,13 +15,21 @@ final readonly class ResultResponse implements ReadonlyInterface
 
     public function toArray(): array
     {
-        //TODO: implement toArray
-        throw new \Exception('toArray not implemented');
+        return [
+            'extra_time' => $this->extra_time,
+            'shooting' => $this->shooting,
+            'contumacy' => $this->contumacy,
+            'score' => $this->score->toArray(),
+        ];
     }
 
-    public function fromArray(array $data): self
+    public static function fromArray(array $data): self
     {
-        //TODO: implement fromArray
-        throw new \Exception('fromArray not implemented');
+        return new self(
+            extra_time: $data['extra_time'],
+            shooting: $data['shooting'],
+            contumacy: $data['contumacy'],
+            score: ScoreResponse::fromArray($data['score'])
+        );
     }
 }
