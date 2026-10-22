@@ -34,47 +34,42 @@ final readonly class GameEventResponse implements ReadonlyInterface
         public int $last_event_time,
     ) {}
 
+    /**
+     * @param  array<int, array<string, mixed>>                         $events
+     * @return array<int, GoalkeeperChangeEvent|GoalEvent|PenaltyEvent>
+     */
+    private static function mapEvents(array $events): array
+    {
+        return array_map(
+            static fn(array $event) => match ($event['type'] ?? null) {
+                'goalkeeperChange' => GoalkeeperChangeEvent::fromArray($event),
+                'goal' => GoalEvent::fromArray($event),
+                'penalty' => PenaltyEvent::fromArray($event),
+                default => throw new \InvalidArgumentException('Unknown event type'),
+            },
+            $events,
+        );
+    }
+
     public function toArray(): array
     {
-        // TODO: return events as array
-        throw new \Exception('Not implemented');
+        return [
+            'period_one' => $this->period_one,
+            'period_two' => $this->period_two,
+            'period_three' => $this->period_three,
+            'overtime' => $this->overtime,
+            'shootout' => $this->shootout,
+            'last_event_time' => $this->last_event_time,
+        ];
     }
 
     public static function fromArray(array $data): self
     {
         return new self(
-            period_one: array_map(
-                match ($data['type']) {
-                    'goalkeeperChange' => GoalkeeperChangeEvent::fromArray(...),
-                    'goal' => GoalEvent::fromArray(...),
-                    'penalty' => PenaltyEvent::fromArray(...),
-                },
-                $data['1'] ?? [],
-            ),
-            period_two: array_map(
-                match ($data['type']) {
-                    'goalkeeperChange' => GoalkeeperChangeEvent::fromArray(...),
-                    'goal' => GoalEvent::fromArray(...),
-                    'penalty' => PenaltyEvent::fromArray(...),
-                },
-                $data['2'] ?? [],
-            ),
-            period_three: array_map(
-                match ($data['type']) {
-                    'goalkeeperChange' => GoalkeeperChangeEvent::fromArray(...),
-                    'goal' => GoalEvent::fromArray(...),
-                    'penalty' => PenaltyEvent::fromArray(...),
-                },
-                $data['3'] ?? [],
-            ),
-            overtime: array_map(
-                match ($data['type']) {
-                    'goalkeeperChange' => GoalkeeperChangeEvent::fromArray(...),
-                    'goal' => GoalEvent::fromArray(...),
-                    'penalty' => PenaltyEvent::fromArray(...),
-                },
-                $data['overtime'] ?? [],
-            ),
+            period_one: self::mapEvents($data['1'] ?? []),
+            period_two: self::mapEvents($data['2'] ?? []),
+            period_three: self::mapEvents($data['3'] ?? []),
+            overtime: self::mapEvents($data['overtime'] ?? []),
             shootout: array_map(
                 ShootoutEvent::fromArray(...),
                 $data['shootout'] ?? [],
