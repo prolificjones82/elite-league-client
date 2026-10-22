@@ -1,0 +1,25 @@
+{
+    "name": "prolificjones/elite-league-client",
+    "description": "Elite League API SDK in PHP",
+    "type": "library",
+    "minimum-stability": "stable",
+    "autoload": {
+		"psr-4": {
+			"EliteLeagueClient\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"EliteLeagueClient\\Tests\\": "tests/"
+		}
+	},
+    "authors": [
+        {
+            "name": "Lee Jones",
+            "email": "mail@leejones.me.uk"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^8.3"
+    }
+}
