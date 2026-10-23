@@ -14,7 +14,7 @@ final class Logger
 
     public function __construct(string $name = 'elite_league_client', array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null, ?ClockInterface $clock = null)
     {
-        $logPath = __DIR__ . DIRECTORY_SEPARATOR . $name . '.log';
+        $logPath = '.' . DIRECTORY_SEPARATOR . $name . '.log';
         $handlers = array_merge($handlers, [
             new StreamHandler($logPath),
             new FirePHPHandler(),

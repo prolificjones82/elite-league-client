@@ -25,9 +25,7 @@ abstract class AbstractClient
             'Content-Type' => Constants::CONTENT_TYPE,
         ], $headers ?? []));
 
-        $this->client = new GuzzleClient([
-            'base_uri' => $this->getBaseUrl(),
-        ]);
+        $this->client = new GuzzleClient();
 
         $this->clientOptions = [
             'debug' => false,

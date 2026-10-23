@@ -13,20 +13,20 @@ final class GameSchedule extends Client
     /**
      * Get League Schedule
      *
-     * @param League  $league
-     * @param ?string $year
+     * @param League     $league
+     * @param int|string $year
      *
      * @return ScheduleResponse
      * @throws Exception
      */
-    public function getLeagueSchedule(League $league, ?string $year): ScheduleResponse
+    public function getLeagueSchedule(League $league, int|string $year): ScheduleResponse
     {
-        $path = sprintf('/league-matches/%s/%s.json', $year ?? date('Y'), $league->value);
+        $path = sprintf('/league-matches/%s/%s.json', $year, $league->value);
 
         try {
             $req = $this->makeRequest('GET', $path);
             $res = $this->getResponseData($req);
-            $response = ScheduleResponse::fromArray($res['matches']);
+            $response = ScheduleResponse::fromArray($res);
             return $response;
         } catch (RequestException $re) {
             $this->getLogger()->addError(sprintf('(%s) - %s', $re->getCode(), $re->getMessage()), [
@@ -47,20 +47,20 @@ final class GameSchedule extends Client
      * Get Team Schedule
      *
      * @param League     $league
-     * @param string|int $team
-     * @param ?string    $year
+     * @param int|string $team
+     * @param int|string $year
      *
      * @return ScheduleResponse
      * @throws Exception
      */
-    public function getTeamSchedule(League $league, int|string $team, ?string $year): ScheduleResponse
+    public function getTeamSchedule(League $league, int|string $team, int|string $year): ScheduleResponse
     {
-        $path = sprintf('/league-team-matches/%s/%s/%s.json', $year ?? date('Y'), $league->value, (string) $team);
+        $path = sprintf('/league-team-matches/%s/%s/%s.json', $year, $league->value, (string) $team);
 
         try {
             $req = $this->makeRequest('GET', $path);
             $res = $this->getResponseData($req);
-            $response = ScheduleResponse::fromArray($res['matches']);
+            $response = ScheduleResponse::fromArray($res);
             return $response;
         } catch (RequestException $re) {
             $this->getLogger()->addError(sprintf('(%s) - %s', $re->getCode(), $re->getMessage()), [
