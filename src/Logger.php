@@ -3,6 +3,8 @@
 namespace EliteLeagueClient;
 
 use DateTimeZone;
+use Monolog\Level;
+use InvalidArgumentException;
 use Psr\Clock\ClockInterface;
 use Monolog\Logger as Monolog;
 use Monolog\Handler\StreamHandler;
@@ -12,15 +14,41 @@ final class Logger
 {
     public Monolog $logger;
 
-    public function __construct(string $name = 'elite_league_client', array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null, ?ClockInterface $clock = null)
+    public function __construct(string $name = 'elite-league-sdk', array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null, ?ClockInterface $clock = null)
     {
+        $level = self::isVerboseLoggingEnabled() ? Level::Debug : Level::Error;
         $logPath = '.' . DIRECTORY_SEPARATOR . $name . '.log';
         $handlers = array_merge($handlers, [
-            new StreamHandler($logPath),
-            new FirePHPHandler(),
+            new StreamHandler($logPath, $level),
+            new FirePHPHandler($level),
         ]);
 
         $this->logger = new Monolog($name, $handlers, $processors, $timezone, $clock);
+    }
+
+    private static function isVerboseLoggingEnabled(): bool
+    {
+        $value = $_ENV['ELITE_LEAGUE_VERBOSE_LOGGING']
+            ?? $_SERVER['ELITE_LEAGUE_VERBOSE_LOGGING']
+            ?? getenv('ELITE_LEAGUE_VERBOSE_LOGGING');
+
+        if ($value === false || $value === '') {
+            return false;
+        }
+
+        if (is_bool($value)) {
+            return $value;
+        }
+
+        if (!is_string($value) && !is_int($value)) {
+            throw new InvalidArgumentException('ELITE_LEAGUE_VERBOSE_LOGGING must be a boolean value.');
+        }
+
+        return match (strtolower(trim((string) $value))) {
+            '1', 'true', 'yes', 'on' => true,
+            '0', 'false', 'no', 'off' => false,
+            default => throw new InvalidArgumentException('ELITE_LEAGUE_VERBOSE_LOGGING must be a boolean value.'),
+        };
     }
 
     public function addDebug(string $message, array $context = [])

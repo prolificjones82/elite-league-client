@@ -29,7 +29,8 @@
         "friendsofphp/php-cs-fixer": "^3.95",
         "phpstan/phpstan": "^2.3",
         "phpunit/phpunit": "^13.4",
-        "php": "^8.4"
+        "php": "^8.4",
+        "symfony/dotenv": "^8.1"
     },
     "scripts": {
 		"typecheck": "./vendor/bin/phpstan analyse -c phpstan.neon --error-format=table || true",

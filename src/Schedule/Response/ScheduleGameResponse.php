@@ -18,7 +18,7 @@ final readonly class ScheduleGameResponse implements ReadonlyInterface
         public League $league_id,
         public string $league,
         public int $season,
-        public string $round,
+        public ?string $round,
         public ?string $group,
         public TeamResponse $home,
         public TeamResponse $guest,

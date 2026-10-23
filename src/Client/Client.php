@@ -11,13 +11,28 @@ abstract class Client extends AbstractClient implements ConnectionInterface
     public function __construct(?array $headers = [])
     {
         parent::__construct($headers);
-        $this->getLogger()->addInfo(sprintf('Elite League Client'));
+        $this->getLogger()->addInfo(sprintf('EIHL SDK: %s', static::class), [
+            'base_url' => $this->getBaseUrl(),
+            'headers' => $this->getHeaders(),
+            'logger' => get_class($this->getLogger()),
+            'client' => get_class($this->getClient()),
+            'client_options' => $this->getClientOptions(),
+        ]);
     }
 
     public function makeRequest(string $method, string $path, ?array $data = [], ?array $headers = []): Response
     {
         $url = sprintf('%s/%s', $this->getBaseUrl(), ltrim($path, '/'));
-        $this->getLogger()->addInfo(sprintf('API Call to: %s', $url));
+        $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1] ?? [];
+        $this->getLogger()->addInfo(
+            sprintf('EIHL SDK - (%s):', $caller['function']),
+            [
+                'url' => $url,
+                'method' => $method,
+                'data' => $data,
+                'headers' => $headers
+            ]
+        );
 
         $response = $this->getClient()->request($method, $url, $this->getClientOptions());
 

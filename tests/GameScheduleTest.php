@@ -12,10 +12,33 @@ final class GameScheduleTest extends TestCase
     public function testGetLeagueSchedule(): void
     {
         $schedule = new GameSchedule();
-        $league = League::EIHL;
-        $year = 2026;
+        $leagues = [
+            League::EIHL,
+            League::CHALLENGE_CUP,
+            League::PLAYOFFS,
+        ];
 
-        $response = $schedule->getLeagueSchedule($league, $year);
-        $this->assertInstanceOf(ScheduleResponse::class, $response);
+        foreach ($leagues as $league) {
+            $response = $schedule->getLeagueSchedule($league, 2025);
+            $this->assertInstanceOf(ScheduleResponse::class, $response);
+            $this->assertIsArray($response->matches, '$response->matches is not an array');
+        }
+    }
+
+    public function testGetTeamSchedule(): void
+    {
+        $schedule = new GameSchedule();
+        $leagues = [
+            League::EIHL,
+            League::CHALLENGE_CUP,
+            League::PLAYOFFS,
+        ];
+        $team = $_ENV['ELITE_LEAGUE_DEFAULT_TEAM_ID'] ?? 96;
+
+        foreach ($leagues as $league) {
+            $response = $schedule->getTeamSchedule($league, $team, 2025);
+            $this->assertInstanceOf(ScheduleResponse::class, $response);
+            $this->assertIsArray($response->matches, '$response->matches is not an array');
+        }
     }
 }
