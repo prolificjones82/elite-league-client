@@ -30,8 +30,8 @@ abstract class Client extends AbstractClient implements ConnectionInterface
                 'url' => $url,
                 'method' => $method,
                 'data' => $data,
-                'headers' => $headers
-            ]
+                'headers' => $headers,
+            ],
         );
 
         $response = $this->getClient()->request($method, $url, $this->getClientOptions());

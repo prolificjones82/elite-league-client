@@ -21,7 +21,7 @@ final readonly class StandingsResponse implements ReadonlyInterface
         return [
             'groupId' => $this->groupId,
             'groupName' => $this->groupName,
-            'complete' => $this->complete ?? false,
+            'complete' => (bool) $this->complete,
             'clubs' => array_map(
                 static fn(TeamResponse $team): array => $team->toArray(),
                 $this->clubs,
