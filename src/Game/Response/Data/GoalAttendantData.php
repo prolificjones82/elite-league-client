@@ -2,18 +2,18 @@
 
 namespace EliteLeagueClient\Game\Response\Data;
 
-use EliteLeagueClient\Game\Response\GameInfo\RosterPlayerResponse;
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
+use EliteLeagueClient\Game\Response\GameInfo\RosterPlayerResponse;
 
 final readonly class GoalAttendantData implements ReadonlyInterface
 {
     public function __construct(
         /**
-         * @var Array<int, RosterPlayerResponse>
+         * @var array<int, RosterPlayerResponse>
          */
         public array $positive,
         /**
-         * @var Array<int, RosterPlayerResponse>
+         * @var array<int, RosterPlayerResponse>
          */
         public array $negative,
     ) {}
@@ -23,12 +23,12 @@ final readonly class GoalAttendantData implements ReadonlyInterface
         return [
             'positive' => array_map(
                 static fn(RosterPlayerResponse $player) => $player->toArray(),
-                $this->positive
+                $this->positive,
             ),
             'negative' => array_map(
                 static fn(RosterPlayerResponse $player) => $player->toArray(),
-                $this->negative
-            )
+                $this->negative,
+            ),
         ];
     }
 
@@ -37,11 +37,11 @@ final readonly class GoalAttendantData implements ReadonlyInterface
         return new self(
             positive: array_map(
                 RosterPlayerResponse::fromArray(...),
-                $data['positive'] ?? []
+                $data['positive'] ?? [],
             ),
             negative: array_map(
                 RosterPlayerResponse::fromArray(...),
-                $data['negative'] ?? []
+                $data['negative'] ?? [],
             ),
         );
     }

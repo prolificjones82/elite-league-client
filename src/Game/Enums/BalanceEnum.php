@@ -2,7 +2,8 @@
 
 namespace EliteLeagueClient\Game\Enums;
 
-enum BalanceEnum: string {
+enum BalanceEnum: string
+{
     case EQ = 'Equal Strength';
     case PP1 = 'Powerplay Goal (5 on 4)';
     case PP2 = 'Powerplay Goal (5 on 3)';

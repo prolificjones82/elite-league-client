@@ -4,9 +4,8 @@ namespace EliteLeagueClient\Game\Response\Data;
 
 use DateTime;
 use EliteLeagueClient\Constants;
-use EliteLeagueClient\Game\Response\Data\GoalAttendantData;
-use EliteLeagueClient\Game\Response\GameInfo\RosterPlayerResponse;
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
+use EliteLeagueClient\Game\Response\GameInfo\RosterPlayerResponse;
 
 final readonly class GoalData implements ReadonlyInterface
 {
@@ -47,7 +46,7 @@ final readonly class GoalData implements ReadonlyInterface
                 static fn(RosterPlayerResponse $player) => $player->toArray(),
                 $this->assistants,
             ),
-            'attendants' => $this->attendants->toArray()
+            'attendants' => $this->attendants->toArray(),
         ];
     }
 
@@ -69,7 +68,7 @@ final readonly class GoalData implements ReadonlyInterface
                 RosterPlayerResponse::fromArray(...),
                 $data['assistants'] ?? [],
             ),
-            attendants: GoalAttendantData::fromArray($data['attendants'])
+            attendants: GoalAttendantData::fromArray($data['attendants']),
         );
     }
 }
