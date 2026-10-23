@@ -35,7 +35,10 @@
     "scripts": {
 		"typecheck": "./vendor/bin/phpstan analyse -c phpstan.neon --error-format=table || true",
 		"test": "phpunit",
-		"test-coverage": "phpunit --coverage-text",
+		"test-coverage": [
+			"@putenv XDEBUG_MODE=coverage",
+			"phpunit --coverage-text"
+		],
 		"format": "php-cs-fixer fix",
 		"format:check": "php-cs-fixer check --diff"
 	}
