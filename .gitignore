@@ -13,3 +13,6 @@ coverage/
 
 # PHPStan
 .phpstan.cache/
+
+*.log
+**/*.log
