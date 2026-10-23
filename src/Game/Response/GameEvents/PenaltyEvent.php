@@ -4,7 +4,7 @@ namespace EliteLeagueClient\Game\Response\GameEvents;
 
 use EliteLeagueClient\Game\Enums\EventType;
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
-use EliteLeagueClient\Game\Response\GameEvents\Data\PenaltyData;
+use EliteLeagueClient\Game\Response\Data\PenaltyData;
 
 final readonly class PenaltyEvent extends BaseEvent implements ReadonlyInterface
 {

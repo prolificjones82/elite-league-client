@@ -4,7 +4,7 @@ namespace EliteLeagueClient\Game\Response\GameEvents;
 
 use EliteLeagueClient\Game\Enums\EventType;
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
-use EliteLeagueClient\Game\Response\GameEvents\Data\ShootoutData;
+use EliteLeagueClient\Game\Response\Data\ShootoutData;
 
 final readonly class ShootoutEvent extends BaseEvent implements ReadonlyInterface
 {

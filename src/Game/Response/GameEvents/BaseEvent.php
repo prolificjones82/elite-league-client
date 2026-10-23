@@ -3,10 +3,10 @@
 namespace EliteLeagueClient\Game\Response\GameEvents;
 
 use EliteLeagueClient\Game\Enums\EventType;
-use EliteLeagueClient\Game\Response\GameEvents\Data\GoalData;
-use EliteLeagueClient\Game\Response\GameEvents\Data\PenaltyData;
-use EliteLeagueClient\Game\Response\GameEvents\Data\ShootoutData;
-use EliteLeagueClient\Game\Response\GameEvents\Data\GoalkeeperChangeData;
+use EliteLeagueClient\Game\Response\Data\GoalData;
+use EliteLeagueClient\Game\Response\Data\PenaltyData;
+use EliteLeagueClient\Game\Response\Data\ShootoutData;
+use EliteLeagueClient\Game\Response\Data\GoalkeeperChangeData;
 
 abstract readonly class BaseEvent
 {

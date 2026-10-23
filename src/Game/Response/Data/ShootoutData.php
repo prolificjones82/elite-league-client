@@ -1,6 +1,6 @@
 <?php
 
-namespace EliteLeagueClient\Game\Response\GameEvents\Data;
+namespace EliteLeagueClient\Game\Response\Data;
 
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
 use EliteLeagueClient\Game\Response\GameInfo\RosterPlayerResponse;

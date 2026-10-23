@@ -3,8 +3,8 @@
 namespace EliteLeagueClient\Game\Response\GameEvents;
 
 use EliteLeagueClient\Game\Enums\EventType;
+use EliteLeagueClient\Game\Response\Data\GoalData;
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
-use EliteLeagueClient\Game\Response\GameEvents\Data\GoalData;
 
 final readonly class GoalEvent extends BaseEvent implements ReadonlyInterface
 {

@@ -4,7 +4,7 @@ namespace EliteLeagueClient\Game\Response\GameEvents;
 
 use EliteLeagueClient\Game\Enums\EventType;
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
-use EliteLeagueClient\Game\Response\GameEvents\Data\GoalkeeperChangeData;
+use EliteLeagueClient\Game\Response\Data\GoalkeeperChangeData;
 
 final readonly class GoalkeeperChangeEvent extends BaseEvent implements ReadonlyInterface
 {
