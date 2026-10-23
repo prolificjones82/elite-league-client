@@ -26,7 +26,7 @@ final readonly class GoalkeeperChangeEvent extends BaseEvent implements Readonly
     {
         return new self(
             time: $data['time'],
-            type: EventType::tryFrom($data['type']),
+            type: EventType::fromApiValue($data['type']),
             data: GoalkeeperChangeData::fromArray($data['data']),
         );
     }

@@ -18,7 +18,7 @@ final readonly class GoalieStatResponse implements ReadonlyInterface
     {
         return [
             'data' => array_map(
-                GoalieStatData::fromArray(...),
+                static fn(GoalieStatData $goalie): array => $goalie->toArray(),
                 $this->data,
             ),
         ];
@@ -28,7 +28,7 @@ final readonly class GoalieStatResponse implements ReadonlyInterface
     {
         return new self(
             data: array_map(
-                static fn(GoalieStatData $goalie) => $goalie->toArray(),
+                GoalieStatData::fromArray(...),
                 $data['data'] ?? [],
             ),
         );

@@ -26,7 +26,7 @@ final readonly class PenaltyEvent extends BaseEvent implements ReadonlyInterface
     {
         return new self(
             time: $data['time'],
-            type: EventType::tryFrom($data['type']),
+            type: EventType::fromApiValue($data['type']),
             data: PenaltyData::fromArray($data['data']),
         );
     }

@@ -26,7 +26,7 @@ final readonly class ShootoutEvent extends BaseEvent implements ReadonlyInterfac
     {
         return new self(
             time: $data['time'],
-            type: EventType::tryFrom($data['type']),
+            type: EventType::fromApiValue($data['type']),
             data: ShootoutData::fromArray($data['data']),
         );
     }

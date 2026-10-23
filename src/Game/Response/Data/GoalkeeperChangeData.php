@@ -33,7 +33,7 @@ final readonly class GoalkeeperChangeData implements ReadonlyInterface
             team: $data['team'],
             time: $data['time'],
             player: RosterPlayerResponse::fromArray($data['player']),
-            outgoingGoalkeeper: (isset($data['outgoingGoalkeeper']) && $data['outgoingGoalkeeper'] != null) ? RosterPlayerResponse::fromArray($data['outgoingGoalkeeper']) : null,
+            outgoingGoalkeeper: isset($data['outgoingGoalkeeper']) ? RosterPlayerResponse::fromArray($data['outgoingGoalkeeper']) : null,
         );
     }
 }

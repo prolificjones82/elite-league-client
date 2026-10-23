@@ -30,7 +30,7 @@ final readonly class ShootoutData implements ReadonlyInterface
         ];
     }
 
-    public static function fromArray(array $data)
+    public static function fromArray(array $data): self
     {
         return new self(
             id: $data['id'],

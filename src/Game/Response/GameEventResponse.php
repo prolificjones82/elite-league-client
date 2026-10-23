@@ -2,6 +2,7 @@
 
 namespace EliteLeagueClient\Game\Response;
 
+use EliteLeagueClient\Game\Enums\EventType;
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
 use EliteLeagueClient\Game\Response\GameEvents\GoalEvent;
 use EliteLeagueClient\Game\Response\GameEvents\PenaltyEvent;
@@ -42,9 +43,9 @@ final readonly class GameEventResponse implements ReadonlyInterface
     {
         return array_map(
             static fn(array $event) => match ($event['type'] ?? null) {
-                'goalkeeperChange' => GoalkeeperChangeEvent::fromArray($event),
-                'goal' => GoalEvent::fromArray($event),
-                'penalty' => PenaltyEvent::fromArray($event),
+                'goalkeeperChange', EventType::goalkeeperChange => GoalkeeperChangeEvent::fromArray($event),
+                'goal', EventType::goal => GoalEvent::fromArray($event),
+                'penalty', EventType::penalty => PenaltyEvent::fromArray($event),
                 default => throw new \InvalidArgumentException('Unknown event type'),
             },
             $events,
@@ -54,11 +55,26 @@ final readonly class GameEventResponse implements ReadonlyInterface
     public function toArray(): array
     {
         return [
-            'period_one' => $this->period_one,
-            'period_two' => $this->period_two,
-            'period_three' => $this->period_three,
-            'overtime' => $this->overtime,
-            'shootout' => $this->shootout,
+            'period_one' => array_map(
+                static fn(GoalkeeperChangeEvent|GoalEvent|PenaltyEvent $event): array => $event->toArray(),
+                $this->period_one,
+            ),
+            'period_two' => array_map(
+                static fn(GoalkeeperChangeEvent|GoalEvent|PenaltyEvent $event): array => $event->toArray(),
+                $this->period_two,
+            ),
+            'period_three' => array_map(
+                static fn(GoalkeeperChangeEvent|GoalEvent|PenaltyEvent $event): array => $event->toArray(),
+                $this->period_three,
+            ),
+            'overtime' => array_map(
+                static fn(GoalkeeperChangeEvent|GoalEvent|PenaltyEvent $event): array => $event->toArray(),
+                $this->overtime,
+            ),
+            'shootout' => array_map(
+                static fn(ShootoutEvent $event): array => $event->toArray(),
+                $this->shootout,
+            ),
             'last_event_time' => $this->last_event_time,
         ];
     }
@@ -66,9 +82,9 @@ final readonly class GameEventResponse implements ReadonlyInterface
     public static function fromArray(array $data): self
     {
         return new self(
-            period_one: self::mapEvents($data['1'] ?? []),
-            period_two: self::mapEvents($data['2'] ?? []),
-            period_three: self::mapEvents($data['3'] ?? []),
+            period_one: self::mapEvents($data['1'] ?? $data['period_one'] ?? []),
+            period_two: self::mapEvents($data['2'] ?? $data['period_two'] ?? []),
+            period_three: self::mapEvents($data['3'] ?? $data['period_three'] ?? []),
             overtime: self::mapEvents($data['overtime'] ?? []),
             shootout: array_map(
                 ShootoutEvent::fromArray(...),
