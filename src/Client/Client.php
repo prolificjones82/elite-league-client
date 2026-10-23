@@ -16,10 +16,9 @@ abstract class Client extends AbstractClient implements ConnectionInterface
 
     public function makeRequest(string $method, string $path, ?array $data = [], ?array $headers = []): Response
     {
-        $url = sprintf('%s/%s', $this->getBaseUrl(), ltrim($path, '/'));
-        $this->getLogger()->addInfo(sprintf('API Call to: %s', $url));
+        $this->getLogger()->addInfo(sprintf('API Call to: %s/%s', $this->getBaseUrl(), ltrim($path, '/')));
 
-        $response = $this->getClient()->request($method, $path, $this->getClientOptions());
+        $response = $this->getClient()->request($method, ltrim($path, '/'), $this->getClientOptions());
 
         return new JsonResponse(
             json_decode($response->getBody()),

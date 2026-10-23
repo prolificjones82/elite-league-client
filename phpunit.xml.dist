@@ -7,8 +7,11 @@
     colors="true"
 >
     <testsuites>
-        <testsuite name="Elite League SDK">
-            <directory>tests</directory>
+        <testsuite name="Elite League Mock API">
+            <directory>tests/MockApi</directory>
+        </testsuite>
+        <testsuite name="Elite League Live API">
+            <directory>tests/LiveApi</directory>
         </testsuite>
     </testsuites>
 
