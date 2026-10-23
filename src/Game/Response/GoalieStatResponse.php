@@ -3,23 +3,34 @@
 namespace EliteLeagueClient\Game\Response;
 
 use EliteLeagueClient\Interfaces\ReadonlyInterface;
+use EliteLeagueClient\Game\Response\Data\GoalieStatData;
 
 final readonly class GoalieStatResponse implements ReadonlyInterface
 {
-    /**
-     * @param array<string, mixed> $data Raw payload until the response shape is modelled.
-     */
     public function __construct(
+        /**
+         * @var array<int, GoalieStatData>
+         */
         public array $data,
     ) {}
 
     public function toArray(): array
     {
-        return $this->data;
+        return [
+            'data' => array_map(
+                GoalieStatData::fromArray(...),
+                $this->data,
+            ),
+        ];
     }
 
     public static function fromArray(array $data): self
     {
-        return new self($data);
+        return new self(
+            data: array_map(
+                static fn(GoalieStatData $goalie) => $goalie->toArray(),
+                $data['data'] ?? [],
+            ),
+        );
     }
 }
