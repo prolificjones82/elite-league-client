@@ -3,6 +3,7 @@
     "description": "Elite League API SDK in PHP",
     "type": "library",
     "minimum-stability": "stable",
+    "license": "GPL-3.0-or-later",
     "autoload": {
 		"psr-4": {
 			"EliteLeagueClient\\": "src/"
